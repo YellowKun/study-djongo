@@ -7,22 +7,28 @@
 </head>
 
 <body>
-    <form action="/fip" method="get">
+    <h3>添加ip：</h3>
+    <form action="/ip_add" method="get">
         请输入你要生成的ip数量：
         <br>
-        <input type="text" name="q">
+        <input type="text" name="ip_num">
         <input type="submit" value="确认">
     </form>
     <br>
-    你需要获取ip的数量为：{{ ipq }}
+    <!-- 你需要获取ip的数量为：{{ ipq }}
     <br>
     获取的ip为：
     <hr>
     {% for i in message %}
     {{ i }}
     <hr>
-    {% endfor %}
+    {% endfor %} -->
 
+    {% for i in datas %}
+    {{i}}
+    <!-- <a href="">删除</a> -->
+    <hr>
+    {% endfor %}
 </body>
 
 </html>

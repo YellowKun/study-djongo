@@ -16,10 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url
-from . import view
+from . import ip_operation
 
 urlpatterns = [
     
-    path('form/', view.form),
-    path('fip/', view.fip),
+    path('admin/', ip_operation.admin),
+    path('ip_add/', ip_operation.ip_add),
 ]
