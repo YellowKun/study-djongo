@@ -7,6 +7,13 @@ import random
 import json
 
 
+def admin(request):
+    f = open('kk/ip.txt', 'r')
+    datas = []
+    for line in f.readlines():
+        datas.append(json.loads(line))
+    return render(request, 'fip.html', locals())
+
 
 def ip_create():
     extranet_ip = ipr.get('http://ip.cip.cc/').text
@@ -16,6 +23,7 @@ def ip_create():
                                      random.randint(0, 255))
     if random_ip != extranet_ip:
         return random_ip
+
 
 def ip_add(req):
     n = int(req.GET['ip_num'])
@@ -31,11 +39,24 @@ def ip_add(req):
     return render(req, "fip.html")
 
 
-# def ip_delete():
-#     pass
+def ip_delete(req):
+    del_ip = req.GET['del_ip']
+    del_ip = del_ip.replace('\'', '\"')
+    lines = [l for l in open("kk/ip.txt", "r") if l.find(del_ip) != 0]
+    fd = open("kk/ip.txt", "w")
+    fd.writelines(lines)
+    return render(req, "fip.html")
 
 
-def admin(request):
-    f = open('kk/ip.txt', 'r')
-    datas = f.readlines()
-    return render(request, 'fip.html', locals())
+def ip_edit(req):
+    pass
+
+def ip_select(req):
+    ip_name = req.GET['ip_name']
+    f = open("kk/ip.txt", "r")
+    for line in f.readlines():
+        if ip_name in line:
+            print('hanyou')
+            ip_json=json.loads(line)
+        
+    return render(req,"fip.html",locals())

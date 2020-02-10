@@ -14,21 +14,42 @@
         <input type="text" name="ip_num">
         <input type="submit" value="确认">
     </form>
-    <br>
-    <!-- 你需要获取ip的数量为：{{ ipq }}
-    <br>
-    获取的ip为：
-    <hr>
-    {% for i in message %}
-    {{ i }}
-    <hr>
-    {% endfor %} -->
+    <h3>查找ip：</h3>
+    <form action="/ip_select" method="get">
+        请输入你要查找的ip：
+        <br>
+        <input type="text" name="ip_name">
+        <input type="submit" value="确认">
+        <br>
+        你查找的ip在：{{ip_json.src}} -> {{ip_json.dest}} 
+    </form>
+    <h3>显示当前所有ip：</h3>
+    <a href="/admin/">点击显示</a>
+    <table>
+        <tr>
+            <th>src-ip</th>
+            <th></th>
+            <th>dest-ip</th>
+            <th></th>
+            <th>操作</th>
+        </tr>
+        {% for i in datas %}
+        <tr>
+            <td>{{ i.src }}</td>
+            <td> -> </td>
+            <td>{{ i.dest }}</td>
+            <td></td>
+            <td><a href="/ip_delete/?del_ip={{i}}"> 删除 </a></td>
+            <td><a href="/ip_edit/?edit_ip{{i}}"> 编辑 </a></td>
 
-    {% for i in datas %}
-    {{i}}
-    <!-- <a href="">删除</a> -->
-    <hr>
-    {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+
+
+
+
+
 </body>
 
 </html>

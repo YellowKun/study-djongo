@@ -22,4 +22,7 @@ urlpatterns = [
     
     path('admin/', ip_operation.admin),
     path('ip_add/', ip_operation.ip_add),
+    path('ip_delete/',ip_operation.ip_delete),
+    path('ip_edit/',ip_operation.ip_edit),
+    path('ip_select/',ip_operation.ip_select),
 ]
