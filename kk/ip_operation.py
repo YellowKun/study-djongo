@@ -5,6 +5,7 @@ from django.template import Template, loader, Context
 import requests as ipr
 import random
 import json
+import re
 
 
 def admin(request):
@@ -48,15 +49,40 @@ def ip_delete(req):
     return render(req, "fip.html")
 
 
+def edit_ip_gain(req):
+    edit_ip = eval(req.GET['edit_ip'])
+    with open("kk/edit_ip.txt", 'w') as t:
+        t.write(json.dumps(edit_ip))
+    return render(req, "fip.html", locals())
+
+
 def ip_edit(req):
-    pass
+    src_ip = req.GET['src_ip']
+    dest_ip = req.GET['dest_ip']
+
+    ip_dict = {}
+    ip_dict['src'] = src_ip
+    ip_dict['dest'] = dest_ip
+
+    e = open("kk/edit_ip.txt", 'r')
+    ed = e.readline()
+
+    file1 = open("kk/ip.txt", "r")
+    con = file1.read()
+    con1 = con.replace(ed, json.dumps(ip_dict))
+    file1.close()
+
+    file2 = open("kk/ip.txt", "w")
+    file2.write(con1)
+    file2.close()
+
+    return render(req, "fip.html", locals())
+
 
 def ip_select(req):
     ip_name = req.GET['ip_name']
     f = open("kk/ip.txt", "r")
     for line in f.readlines():
         if ip_name in line:
-            print('hanyou')
-            ip_json=json.loads(line)
-        
-    return render(req,"fip.html",locals())
+            ip_json = json.loads(line)
+    return render(req, "fip.html", locals())
